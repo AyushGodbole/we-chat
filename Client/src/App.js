@@ -1,10 +1,9 @@
 
 import React from 'react';
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
-import Register from './components/Register';
-import Login from './components/Login';
-import Chat from './components/Chat';
-
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import Chat from './Pages/Chat';
 function App() {
   return (
     // defining routing
