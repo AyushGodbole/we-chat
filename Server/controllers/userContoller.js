@@ -53,4 +53,44 @@ const register = async(req,res,next)=>{
     }
 }
 
-export{register};
+
+// login logic
+const login = async(req,res,next)=>{
+
+    try {
+        const {username,password} = req.body;
+
+        const user = await User.findOne({username});
+
+        // check if user exists
+        if(!user){
+            return res.json({
+                message:"user not registered!",
+                status:false,
+            })
+        }
+
+        // compare password
+        const passwordCheck = await bcrypt.compare(password,user.password);
+
+        if(!passwordCheck){
+            return res.json({
+                message:"Incorrect Password!",
+                status:false,
+            })
+        }
+
+        user.password = undefined;
+
+        return res.json({
+            message:"user logged in successfully",
+            status:true,
+            userData:user
+        })
+        
+    } catch (error) {
+        next(error);
+    }
+}
+
+export{register,login};
