@@ -3,6 +3,7 @@ import User from "../model/userModel.js";
 // bcrypt for hashing password
 import bcrypt from 'bcrypt';
 
+// register logic
 const register = async(req,res,next)=>{
     try {
         const {username , email , password , confirm_password} = req.body;
@@ -82,6 +83,8 @@ const login = async(req,res,next)=>{
 
         user.password = undefined;
 
+        // console.log("login",user);
+
         return res.json({
             message:"user logged in successfully",
             status:true,
@@ -93,4 +96,40 @@ const login = async(req,res,next)=>{
     }
 }
 
-export{register,login};
+// logout logic
+const logout = async(req,res,next)=>{
+    // localStorage.clear();
+
+    return res.json({
+        message:"user logged out successfully",
+        status:true,
+    })
+}
+
+// set avatar logic
+const setAvatar = async(req,res,next)=>{
+    try {
+        const image = req.body.image;
+        const userId = req.params.id;
+        // console.log(image);
+
+        const user = await User.findById(userId);
+        // console.log("us",user);
+
+        user.isAvatart = true;
+        user.avatarImage = image;
+
+        user.save();
+
+        return res.json({
+            isSet:user.isAvatart,
+            image:user.avatarImage,
+        })
+
+        // const user = 
+    } catch (error) {
+        
+    }
+}
+
+export{register,login,logout,setAvatar};

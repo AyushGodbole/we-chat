@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import styled from 'styled-components';
 import { Link , useNavigate } from "react-router-dom";
 import Logo from '../assets/logo.png';
@@ -14,6 +14,15 @@ import { loginRoute } from "../utils/ApiRoutes";
 
 function Login() {
 
+
+    const toastOptions = {
+      position: "bottom-right",
+      autoClose: 8000,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+  }
+
     const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState({
@@ -21,28 +30,23 @@ function Login() {
         password: "",
     });
 
+    // check if someone already logged in
+    useEffect(()=>{
+        if(localStorage.getItem('chat-app-user')){
+            navigate('/');
+        }
+    },[])
+
     const handleValidation = () => {
         const { username, password } = userInput;
 
-        if(username==""){
-            toast.error("username can't be empty!", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+        if(username===""){
+            toast.error("username can't be empty!", toastOptions);
             return false;
         }
 
         else if(password==="") {
-            toast.error("Password can't be empty", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+            toast.error("Password can't be empty", toastOptions);
             return false;
         }
 
@@ -56,16 +60,16 @@ function Login() {
             try {
                 const response = await axios.post(loginRoute, userInput);
                 if (response.data.status === true) { // Corrected typo here
-                    toast.success("User logged in successfully");
+                    toast.success("User logged in successfully",toastOptions);
                     localStorage.setItem('chat-app-user', JSON.stringify(response.data.userData));
                     navigate('/'); // Move this line inside the if block
                 } else {
                     // Handle registration failure (optional)
-                    toast.error(response.data.message);
+                    toast.error(response.data.message,toastOptions);
                 }
             } catch (error) {
                 // Handle request error (optional)
-                toast.error("login failed");
+                toast.error("login failed",toastOptions);
                 console.error("login error:", error);
             }
         }

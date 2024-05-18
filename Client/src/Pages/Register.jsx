@@ -14,6 +14,14 @@ import { registerRoute } from "../utils/ApiRoutes";
 
 function Register() {
 
+    const toastOptions = {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+    };
+
     const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState({
@@ -27,46 +35,22 @@ function Register() {
         const { username, email, password, confirm_password } = userInput;
 
         if (!username || !email || !password || !confirm_password) {
-            toast.error("Please fill all details!", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+            toast.error("Please fill all details!", toastOptions);
             return false;
         }
 
         else if(username.length<3){
-            toast.error("Too small username!", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+            toast.error("Too small username!", toastOptions);
             return false;
         }
 
         else if(password.length<6) {
-            toast.error("Password should be minimum of 6 characters", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+            toast.error("Password should be minimum of 6 characters", toastOptions);
             return false;
         }
 
         else if(password !== confirm_password) {
-            toast.error("Passwords do not match!", {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
+            toast.error("Passwords do not match!", toastOptions);
             return false;
         }
 
@@ -80,16 +64,16 @@ function Register() {
             try {
                 const response = await axios.post(registerRoute, userInput);
                 if (response.data.status === true) { // Corrected typo here
-                    toast.success("User registered successfully");
+                    toast.success("User registered successfully",toastOptions);
                     localStorage.setItem('chat-app-user', JSON.stringify(response.data.userData));
                     navigate('/'); // Move this line inside the if block
                 } else {
                     // Handle registration failure (optional)
-                    toast.error("Registration failed");
+                    toast.error("Registration failed",toastOptions);
                 }
             } catch (error) {
                 // Handle request error (optional)
-                toast.error("Registration failed");
+                toast.error("Registration failed",toastOptions);
                 console.error("Registration error:", error);
             }
         }
