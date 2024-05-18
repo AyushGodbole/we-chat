@@ -126,10 +126,23 @@ const setAvatar = async(req,res,next)=>{
             image:user.avatarImage,
         })
 
-        // const user = 
     } catch (error) {
-        
+        next(error);
     }
 }
 
-export{register,login,logout,setAvatar};
+// get all users logic
+const getAllUsers = async(req,res,next)=>{
+    try {
+        // select all users except itself
+        const users = await User.find({_id: {$ne:req.params.id}}).select([
+            "email","username","avatarImage","_id",
+        ])
+
+        return res.json({users});
+    } catch (error) {
+        next(error);
+    }
+}
+
+export{register,login,logout,setAvatar,getAllUsers};

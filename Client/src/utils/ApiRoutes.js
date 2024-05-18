@@ -8,4 +8,6 @@ const logoutRoute = `${host}/api/auth/logout`;
 
 const setAvatarRoute = `${host}/api/auth/setAvatar`;
 
-export {registerRoute,loginRoute,logoutRoute,setAvatarRoute};
+const allUserRoutes = `${host}/api/auth/allusers`;
+
+export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes};
