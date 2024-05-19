@@ -6,6 +6,7 @@ import { allUserRoutes } from "../utils/ApiRoutes";
 import { toast } from "react-toastify";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
+import ChatContainer from "../components/ChatContainer";
 
 function Chat() {
   const toastOptions = {
@@ -22,6 +23,8 @@ function Chat() {
 
   const [currentChat,setCurrentChat] = useState(undefined);
 
+  const [isLoaded,setIsLoaded] = useState(false);
+
   // if no one is logged in
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,6 +32,7 @@ function Chat() {
         navigate('/login');
       } else {
         setCurrentUser(await JSON.parse(localStorage.getItem('chat-app-user')));
+        setIsLoaded(true);
       }
     };
 
@@ -66,7 +70,14 @@ function Chat() {
     <Container>
       <div className="container">
         <Contacts contacts={contacts} currentUser={currentUser}  changeChat={handleChatChange}/>
-        <Welcome/>
+        {
+          isLoaded && currentChat===undefined ? (
+            <Welcome currentUser={currentUser}/>
+          ):
+          (
+            <ChatContainer currentUser={currentUser}/>
+          )
+        }
       </div>
     </Container>
   );
