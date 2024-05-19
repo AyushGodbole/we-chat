@@ -96,16 +96,6 @@ const login = async(req,res,next)=>{
     }
 }
 
-// logout logic
-const logout = async(req,res,next)=>{
-    // localStorage.clear();
-
-    return res.json({
-        message:"user logged out successfully",
-        status:true,
-    })
-}
-
 // set avatar logic
 const setAvatar = async(req,res,next)=>{
     try {
@@ -145,4 +135,4 @@ const getAllUsers = async(req,res,next)=>{
     }
 }
 
-export{register,login,logout,setAvatar,getAllUsers};
+export{register,login,setAvatar,getAllUsers};

@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getAllUsers, login, logout, register, setAvatar } from '../controllers/userContoller.js';
+import { getAllUsers, login, register, setAvatar } from '../controllers/userContoller.js';
  
 // creating router object
 const router = Router();
@@ -9,9 +9,6 @@ router.post('/register',register);
 
 // which function to call when '/login' hits
 router.post('/login',login);
-
-// which function to call when '/logout' hits
-router.get('/logout',logout);
 
 // which function to call when '/logout' hits
 router.post('/setAvatar/:id',setAvatar);

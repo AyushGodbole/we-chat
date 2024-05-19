@@ -75,7 +75,7 @@ function Chat() {
             <Welcome currentUser={currentUser}/>
           ):
           (
-            <ChatContainer currentUser={currentUser}/>
+            <ChatContainer currentChat={currentChat}/>
           )
         }
       </div>
@@ -97,7 +97,7 @@ const Container = styled.div`
     width: 85vw;
     background-color: #00000076;
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 27% 73%;
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
     }
