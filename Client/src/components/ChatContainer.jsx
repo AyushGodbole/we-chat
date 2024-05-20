@@ -1,9 +1,23 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
+import ChatInput from "./ChatInput";
+import Messages from "./Messages";
+import axios from "axios";
+import { sendMessageRoute } from "../utils/ApiRoutes";
+import { toast } from "react-toastify";
 
-function ChatContainer({currentChat}){
+function ChatContainer({currentChat,currentUser}){
     // useEffect(()=>console.log('curr-chat',currentChat),[]);
+
+    const handleSendMessage = async(msg)=>{
+        const response = await axios.post(sendMessageRoute,{
+          from:currentUser._id,
+          to:currentChat._id,
+          message:msg,
+        });
+    }
+
     return(
         currentChat && 
         <>
@@ -23,8 +37,10 @@ function ChatContainer({currentChat}){
                     <Logout/>
                 </div>
                 
-                <div className="chat-messages"></div>
-                <div className="chat-input"></div>
+                <Messages/>
+                <div className="chat-input">
+                    <ChatInput handleSendMessage={handleSendMessage}/>
+                </div>
             </Container>
         </>
     )

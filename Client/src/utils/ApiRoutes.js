@@ -10,4 +10,8 @@ const setAvatarRoute = `${host}/api/auth/setAvatar`;
 
 const allUserRoutes = `${host}/api/auth/allusers`;
 
-export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes};
+const sendMessageRoute = `${host}/api/messages/addmsg`;
+
+const getAllMessagesRoute = `${host}/api/messages/getAllMessages`
+
+export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes,sendMessageRoute,getAllMessagesRoute};

@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import userRoutes from './routes/userRoute.js';
+import messageRoutes from './routes/messageRoute.js'
 
 // Load environment variables from .env file
 dotenv.config();
@@ -17,6 +18,9 @@ app.use(express.json());
 
 // user routing
 app.use('/api/auth',userRoutes);
+
+// message routing
+app.use('/api/messages',messageRoutes);
 
 // Connect to MongoDB using the connection string stored in the environment variable MONGO_URL
 mongoose.connect(process.env.MONGO_URL)
