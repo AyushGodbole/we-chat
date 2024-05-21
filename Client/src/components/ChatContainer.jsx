@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
 import axios from "axios";
-import { sendMessageRoute } from "../utils/ApiRoutes";
+import { getAllMessagesRoute, sendMessageRoute } from "../utils/ApiRoutes";
 import { toast } from "react-toastify";
 
 function ChatContainer({currentChat,currentUser}){
@@ -17,6 +17,23 @@ function ChatContainer({currentChat,currentUser}){
           message:msg,
         });
     }
+
+    // handle messages
+
+    const [messages , setMessages] = useState([]);
+
+    const handleUserMessages = async()=>{
+      const response = await axios.post(getAllMessagesRoute,{
+        from:currentUser._id,
+        to:currentChat._id,
+      });
+
+      console.log(response.data);
+      setMessages(response.data);
+    }
+    useEffect(()=>{
+      handleUserMessages();
+    },[currentChat])
 
     return(
         currentChat && 
@@ -37,7 +54,23 @@ function ChatContainer({currentChat,currentUser}){
                     <Logout/>
                 </div>
                 
-                <Messages/>
+                <div className="chat-messages">
+                  {
+                    messages.map((msg,index)=>{
+                      return(
+                        <div key={index}>
+                          <div className={`message ${msg.fromSelf ? 'sended' : 'recieved'}`}>
+                            <div className="content">
+                              <p>
+                                {msg?.message}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
                 <div className="chat-input">
                     <ChatInput handleSendMessage={handleSendMessage}/>
                 </div>

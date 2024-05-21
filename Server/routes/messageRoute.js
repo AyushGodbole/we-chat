@@ -8,6 +8,6 @@ const router = Router();
 router.post('/addmsg',addMessage);
 
 // which function to call when '/login' hits
-router.get('/getAllMessages',getAllMessages);
+router.post('/getAllMessages',getAllMessages);
 
 export default router;
