@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { allUserRoutes } from "../utils/ApiRoutes";
+import { allUserRoutes , host } from "../utils/ApiRoutes";
 import { toast } from "react-toastify";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
+
+import {io} from 'socket.io-client'
 
 function Chat() {
   const toastOptions = {
@@ -39,6 +41,15 @@ function Chat() {
     fetchUser();
   }, [navigate]);
 
+  const socket = useRef();
+
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
+
   useEffect(() => {
     const fetchContacts = async () => {
       if (currentUser) {
@@ -66,6 +77,9 @@ function Chat() {
         setCurrentChat(chat);
   }
 
+
+
+
   return (
     <Container>
       <div className="container">
@@ -75,7 +89,7 @@ function Chat() {
             <Welcome currentUser={currentUser}/>
           ):
           (
-            isLoaded && <ChatContainer currentChat={currentChat} currentUser={currentUser}/>
+            isLoaded && <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket}/>
           )
         }
       </div>

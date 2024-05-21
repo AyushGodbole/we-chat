@@ -14,4 +14,4 @@ const sendMessageRoute = `${host}/api/messages/addmsg`;
 
 const getAllMessagesRoute = `${host}/api/messages/getAllMessages`
 
-export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes,sendMessageRoute,getAllMessagesRoute};
+export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes,sendMessageRoute,getAllMessagesRoute,host};
