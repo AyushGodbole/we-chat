@@ -4,7 +4,6 @@ import Logout from "./Logout";
 import ChatInput from "./ChatInput";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/ApiRoutes";
-import { toast } from "react-toastify";
 
 import {v4 as uuidv4} from 'uuid';
 
