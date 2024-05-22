@@ -41,7 +41,7 @@ const server = app.listen(PORT, () => {
 // socket connection logic
 const io = new Server(server, {  // Use Server instead of Socket
   cors: {
-    origin: `http://localhost:3000`,
+    origin: `https://we-chat-sigma.vercel.app`,
     credentials: true,
   }
 });
