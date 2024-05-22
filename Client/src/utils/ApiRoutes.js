@@ -1,17 +1,9 @@
-const host = "http://localhost:5000";
+const registerRoute = `${process.env.REACT_APP_HOST}/api/auth/register`;
+const loginRoute = `${process.env.REACT_APP_HOST}/api/auth/login`;
+const logoutRoute = `${process.env.REACT_APP_HOST}/api/auth/logout`;
+const setAvatarRoute = `${process.env.REACT_APP_HOST}/api/auth/setAvatar`;
+const allUserRoutes = `${process.env.REACT_APP_HOST}/api/auth/allusers`;
+const sendMessageRoute = `${process.env.REACT_APP_HOST}/api/messages/addmsg`;
+const getAllMessagesRoute = `${process.env.REACT_APP_HOST}/api/messages/getAllMessages`;
 
-const registerRoute = `${host}/api/auth/register`;
-
-const loginRoute = `${host}/api/auth/login`;
-
-const logoutRoute = `${host}/api/auth/logout`;
-
-const setAvatarRoute = `${host}/api/auth/setAvatar`;
-
-const allUserRoutes = `${host}/api/auth/allusers`;
-
-const sendMessageRoute = `${host}/api/messages/addmsg`;
-
-const getAllMessagesRoute = `${host}/api/messages/getAllMessages`
-
-export {registerRoute,loginRoute,logoutRoute,setAvatarRoute,allUserRoutes,sendMessageRoute,getAllMessagesRoute,host};
+export { registerRoute, loginRoute, logoutRoute, setAvatarRoute, allUserRoutes, sendMessageRoute, getAllMessagesRoute };
