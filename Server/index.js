@@ -22,6 +22,11 @@ app.use('/api/auth', userRoutes);
 // message routing
 app.use('/api/messages', messageRoutes);
 
+//if random url is hitted
+app.all('*',(req,res)=>{
+  res.status(400).send('OOPS! 404 page not found');
+});
+
 // Connect to MongoDB using the connection string stored in the environment variable MONGO_URL
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('MongoDB connected'))
