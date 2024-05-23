@@ -67,7 +67,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
     return (
         currentChat && 
         <>
-            <Container>
+            <Container className="display-screen">
                 <div className="chat-header">
                     <div className="user-details">
                         <div className="avatar">
@@ -110,6 +110,7 @@ const Container = styled.div`
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
+  background-color:#151111;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
